@@ -594,17 +594,6 @@ target:
 
 ---
 
-## 13) Why this hits your goals
-
-* **UI parity**: the per‑side stacks, sliders, base angles, alarm editors, and analytics mirror the official app layout while remaining native HA.
-* **Autopilot “better than stock”**: bounded, explainable, **local first** controls with optional LLM policy tuning; integrates your **Apple Watch** to start/stop/adjust intelligently.
-* **Routines**: priming based on **home, time, and “nearing bedtime”**; wake‑up sequences tied to **alarm or movement**; per‑side independence.
-* **Future‑proofing & safety**: device actions, events, rate limiting, backoff, and a **kill‑switch** with a bias toward **local** control. ([trufflesecurity.com][5])
-
----
-
-### If you want me to push the exact fork layout as a PR-ready patch, say the word and I’ll output the repo tree with the modified files (full file contents) so you can drop them into your fork and install via HACS.
-
 [1]: https://github.com/lukas-clarke/eight_sleep "GitHub - lukas-clarke/eight_sleep: Home Assistant Eight Sleep integration that works with Eight Sleep's new API and OAUTH2"
 [2]: https://github.com/lukas-clarke/eight_sleep/releases "Releases · lukas-clarke/eight_sleep · GitHub"
 [3]: https://www.home-assistant.io/blog/2023/11/01/release-202311/?utm_source=chatgpt.com "2023.11 To-do: Add release title"
