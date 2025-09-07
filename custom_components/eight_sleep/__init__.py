@@ -396,3 +396,32 @@ class EightSleepBaseEntity(CoordinatorEntity[DataUpdateCoordinator]):
                 thermal_level=thermal_level,
             )
         )
+
+    async def async_set_smart_alarm(
+        self,
+        side: str,
+        time: str,
+        weekdays: list[str],
+        vibration_power: int | None = None,
+        thermal_wake: bool | None = None,
+        smart_light_sleep: bool | None = None,
+    ) -> None:
+        """Set a recurring smart alarm.
+
+        Placeholder implementation awaiting upstream API support.
+        """
+        raise NotImplementedError("Recurring smart alarm not yet implemented")
+
+    async def async_edit_bedtime_schedule(
+        self,
+        side: str,
+        bedtime: str,
+        bedtime_level: int | None = None,
+        initial_level: int | None = None,
+        final_level: int | None = None,
+    ) -> None:
+        """Edit the bedtime schedule for a side.
+
+        Placeholder implementation awaiting upstream API support.
+        """
+        raise NotImplementedError("Bedtime schedule editing not yet implemented")

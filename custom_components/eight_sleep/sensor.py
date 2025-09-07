@@ -47,6 +47,8 @@ from .const import (
     NAME_MAP,
     SERVICE_REFRESH_DATA,
     SERVICE_SET_ONE_OFF_ALARM,
+    SERVICE_SET_SMART_ALARM,
+    SERVICE_EDIT_BEDTIME_SCHEDULE,
 )
 
 ATTR_ROOM_TEMP = "Room Temperature"
@@ -234,6 +236,33 @@ async def async_setup_entry(
         SERVICE_REFRESH_DATA,
         {},
         "async_refresh_data",
+    )
+
+    platform.async_register_entity_service(
+        SERVICE_SET_SMART_ALARM,
+        {
+            vol.Required("side"): vol.In(["left", "right"]),
+            vol.Required("time"): cv.time,
+            vol.Required("weekdays"): vol.All(
+                cv.ensure_list, [vol.In(["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"])]
+            ),
+            vol.Optional("vibration_power"): vol.All(vol.Coerce(int), vol.Range(min=0, max=100)),
+            vol.Optional("thermal_wake"): cv.boolean,
+            vol.Optional("smart_light_sleep"): cv.boolean,
+        },
+        "async_set_smart_alarm",
+    )
+
+    platform.async_register_entity_service(
+        SERVICE_EDIT_BEDTIME_SCHEDULE,
+        {
+            vol.Required("side"): vol.In(["left", "right"]),
+            vol.Required("bedtime"): cv.time,
+            vol.Optional("bedtime_level"): vol.All(vol.Coerce(int), vol.Range(min=-100, max=100)),
+            vol.Optional("initial_level"): vol.All(vol.Coerce(int), vol.Range(min=-100, max=100)),
+            vol.Optional("final_level"): vol.All(vol.Coerce(int), vol.Range(min=-100, max=100)),
+        },
+        "async_edit_bedtime_schedule",
     )
 
 
