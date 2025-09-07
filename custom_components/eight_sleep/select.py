@@ -2,11 +2,12 @@ from typing import Callable
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.entity_platform import AddEntitiesCallback, async_get_current_platform
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+import voluptuous as vol
 
 from custom_components.eight_sleep import EightSleepBaseEntity, EightSleepConfigEntryData
-from custom_components.eight_sleep.const import DOMAIN
+from custom_components.eight_sleep.const import DOMAIN, SERVICE_AUTOPILOT_SET_MODE
 from custom_components.eight_sleep.pyEight.eight import EightSleep
 from custom_components.eight_sleep.pyEight.user import EightUser
 
@@ -45,6 +46,13 @@ async def async_setup_entry(
 
     async_add_entities(entities)
 
+    platform = async_get_current_platform()
+    platform.async_register_entity_service(
+        SERVICE_AUTOPILOT_SET_MODE,
+        {vol.Required("mode"): vol.In(["off", "conservative", "balanced", "aggressive"])},
+        "async_set_autopilot_mode",
+    )
+
 
 class EightSelectEntity(EightSleepBaseEntity, SelectEntity):
 
@@ -72,3 +80,7 @@ class EightSelectEntity(EightSleepBaseEntity, SelectEntity):
     async def async_select_option(self, option: str) -> None:
         self._set_value_callback(option)
         await self.coordinator.async_request_refresh()
+
+    async def async_set_autopilot_mode(self, mode: str) -> None:
+        """Set the Autopilot+ mode (placeholder)."""
+        raise NotImplementedError("Autopilot mode control not implemented")

@@ -201,3 +201,53 @@ set_one_off_alarm:
           min: -100
           max: 100
           unit_of_measurement: "°"
+
+set_smart_alarm:
+  name: Set Smart Alarm (Recurring)
+  description: Create or update a recurring alarm for the selected side.
+  target:
+    entity:
+      domain: sensor
+  fields:
+    side:
+      selector: { select: { options: ["left","right"] } }
+      required: true
+      description: Bed side
+    time:
+      selector: { time: {} }
+      required: true
+      description: Alarm time (HH:MM)
+    weekdays:
+      selector: { select: { multiple: true, options: ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"] } }
+      required: true
+    vibration_power:
+      selector: { number: { min: 0, max: 100, step: 5, mode: slider } }
+      required: false
+    thermal_wake:
+      selector: { boolean: {} }
+      required: false
+    smart_light_sleep:
+      selector: { boolean: {} }
+      required: false
+
+edit_bedtime_schedule:
+  name: Edit Bedtime Schedule
+  description: Set bedtime and target levels for a side.
+  target:
+    entity:
+      domain: sensor
+  fields:
+    side: { selector: { select: { options: ["left","right"] } }, required: true }
+    bedtime: { selector: { time: {} }, required: true }
+    bedtime_level: { selector: { number: { min: -100, max: 100, step: 1 } } }
+    initial_level: { selector: { number: { min: -100, max: 100, step: 1 } } }
+    final_level: { selector: { number: { min: -100, max: 100, step: 1 } } }
+
+autopilot_set_mode:
+  name: Autopilot+ Mode
+  description: Set the Autopilot+ controller policy
+  target:
+    entity:
+      domain: select
+  fields:
+    mode: { selector: { select: { options: ["off","conservative","balanced","aggressive"] } }, required: true }
